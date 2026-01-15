@@ -1,9 +1,9 @@
 package rrDataAccess.rrDAOs;
 
-import rrDataAccess.rrDataHelper;
+import database.rrHelpers.rrDataHelper;
 import java.sql.*;
 
-public class rrHSoldadoDao extends rrDataHelper {
+public class rrHSoldadoDAO extends rrDataHelper {
     public boolean rrCreate(String rrNombre, int rrIdSexo) throws Exception {
         String rrQuery = "INSERT INTO Hormiga (IdTipoHormiga, IdSexo, IdEstado, Nombre) VALUES (2, ?, 1, ?)";
         try (PreparedStatement rrPstmt = rrGetConnection().prepareStatement(rrQuery)) {

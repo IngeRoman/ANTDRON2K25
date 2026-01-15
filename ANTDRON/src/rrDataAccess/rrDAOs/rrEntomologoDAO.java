@@ -1,20 +1,18 @@
-package database.rrDAOs;
+package rrDataAccess.rrDAOs;
 
-import java.sql.*;
+import database.rrHelpers.rrDataHelper;
+import java.sql.*;;
 
-import database.rrDataHelper;
-
-public class rrEntomologoDao extends rrDataHelper {
+public class rrEntomologoDAO extends rrDataHelper {
     public boolean rrLogin(String rrUsuario, String rrPassword) throws Exception {
-        // Simulación de validación según requerimiento: patmic / 123
-        return (rrUsuario.equals("patmic") && rrPassword.equals("123"));
-    }
-
-    public void rrRegistrarLog(String rrAccion) throws Exception {
-        String rrQuery = "INSERT INTO LogEntomologo (Accion, Fecha) VALUES (?, CURRENT_TIMESTAMP)";
-        try (PreparedStatement rrPstmt = rrGetConnection().prepareStatement(rrQuery)) {
-            rrPstmt.setString(1, rrAccion);
-            rrPstmt.executeUpdate();
+        String rrSql = "SELECT COUNT(*) FROM Entomologo WHERE Usuario = ? AND Password = ? AND Estado = 'A'";
+        try (Connection rrConn = rrGetConnection();
+             PreparedStatement rrPstmt = rrConn.prepareStatement(rrSql)) {
+            rrPstmt.setString(1, rrUsuario);
+            rrPstmt.setString(2, rrPassword);
+            try (ResultSet rrRs = rrPstmt.executeQuery()) {
+                return rrRs.next() && rrRs.getInt(1) > 0;
+            }
         }
     }
 }

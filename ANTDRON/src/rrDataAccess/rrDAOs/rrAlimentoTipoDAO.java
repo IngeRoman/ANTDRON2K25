@@ -1,11 +1,9 @@
 package rrDataAccess.rrDAOs;
 
-import rrDataAccess.rrDataHelper;
+import database.rrHelpers.rrDataHelper;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class rrAlimentoTipoDao extends rrDataHelper {
+public class rrAlimentoTipoDAO extends rrDataHelper {
     public boolean rrCreate(String rrNombre, String rrDescripcion) throws Exception {
         String rrQuery = "INSERT INTO AlimentoTipo (Nombre, Descripcion) VALUES (?, ?)";
         try (PreparedStatement rrPstmt = rrGetConnection().prepareStatement(rrQuery)) {

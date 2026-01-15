@@ -1,9 +1,9 @@
 package rrDataAccess.rrDAOs;
 
-import rrDataAccess.rrDataHelper;
+import database.rrHelpers.rrDataHelper;
 import java.sql.*;
 
-public class rrHormigaDao extends rrDataHelper {
+public class rrHormigaDAO extends rrDataHelper {
     public boolean rrUpdateEstado(int rrIdHormiga, int rrIdEstado) throws Exception {
         String rrQuery = "UPDATE Hormiga SET IdEstado = ?, FechaModifica = CURRENT_TIMESTAMP WHERE IdHormiga = ?";
         try (PreparedStatement rrPstmt = rrGetConnection().prepareStatement(rrQuery)) {

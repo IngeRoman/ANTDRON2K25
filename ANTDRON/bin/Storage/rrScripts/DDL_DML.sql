@@ -1,0 +1,97 @@
+
+DROP TABLE IF EXISTS Hormiga;
+DROP TABLE IF EXISTS Alimento;
+DROP TABLE IF EXISTS SuperHabilidad;
+DROP TABLE IF EXISTS Sexo;
+DROP TABLE IF EXISTS Estado;
+DROP TABLE IF EXISTS Genomas;
+DROP TABLE IF EXISTS AlimentoTipo;
+DROP TABLE IF EXISTS TipoHormiga;
+
+CREATE TABLE TipoHormiga (
+    IdTipoHormiga INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE AlimentoTipo (
+    IdAlimentoTipo INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Genomas (
+    IdGenomas INT AUTO_INCREMENT PRIMARY KEY,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCrea DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Estado (
+    IdEstado INT AUTO_INCREMENT PRIMARY KEY,
+    IdGenomas INT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCrea DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (IdGenomas) REFERENCES Genomas(IdGenomas)
+);
+
+CREATE TABLE Sexo (
+    IdSexo INT AUTO_INCREMENT PRIMARY KEY,
+    IdGenomas INT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (IdGenomas) REFERENCES Genomas(IdGenomas)
+);
+
+CREATE TABLE SuperHabilidad (
+    IdSuperHabilidad INT AUTO_INCREMENT PRIMARY KEY,
+    IdGenomas INT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (IdGenomas) REFERENCES Genomas(IdGenomas)
+);
+
+CREATE TABLE Alimento (
+    IdAlimento INT AUTO_INCREMENT PRIMARY KEY,
+    IdTipoAlimento INT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCrea DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (IdTipoAlimento) REFERENCES AlimentoTipo(IdAlimentoTipo)
+);
+
+CREATE TABLE Hormiga (
+    IdHormiga INT AUTO_INCREMENT PRIMARY KEY,
+    IdTipoHormiga INT,
+    IdSexo INT,
+    IdEstado INT,
+    IdSuperHabilidad INT,
+    Nombre VARCHAR(50) NOT NULL,
+    Descripcion TEXT,
+    Estado CHAR(1) DEFAULT 'A',
+    FechaCreacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FechaModifica DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (IdTipoHormiga) REFERENCES TipoHormiga(IdTipoHormiga),
+    FOREIGN KEY (IdSexo) REFERENCES Sexo(IdSexo),
+    FOREIGN KEY (IdEstado) REFERENCES Estado(IdEstado),
+    FOREIGN KEY (IdSuperHabilidad) REFERENCES SuperHabilidad(IdSuperHabilidad)
+);

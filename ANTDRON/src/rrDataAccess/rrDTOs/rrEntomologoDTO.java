@@ -1,4 +1,4 @@
-package database.rrDTOs;
+package rrDataAccess.rrDTOs;
 
 public class rrEntomologoDTO {
     public String rrUsuario;
